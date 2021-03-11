@@ -1,0 +1,7 @@
+build:
+  script:
+    - ./compile.sh
+  after_script:
+    - cd /media/storage/gitlab/
+    - sudo rm -rf Code_Example
+    - git clone http://git.home.lan/root/Code_Example.git
