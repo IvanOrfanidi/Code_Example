@@ -23,7 +23,6 @@ if((CMAKE_CXX_COMPILER_ID MATCHES "GNU") OR (CMAKE_CXX_COMPILER_ID MATCHES "Clan
         -Wnon-virtual-dtor
         -Woverloaded-virtual
         -Wredundant-decls
-        -Wsign-promo
     )
 endif()
 
@@ -47,6 +46,13 @@ file(GLOB_RECURSE MOVE_SEMANTICS_SOURCES
     move_semantics/*.hpp
 )
 
+# Color Modifier
+set(COLOR_MODIFIER "color_modifier")
+file(GLOB_RECURSE COLOR_MODIFIER_SOURCES
+    color_modifier/*.cpp
+    color_modifier/*.hpp
+)
+
 # Set build type
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
@@ -56,6 +62,7 @@ endif(NOT CMAKE_BUILD_TYPE)
 add_executable(${THREAD_SAFE_QUEUE} ${THREAD_SAFE_QUEUE_SOURCES})
 add_executable(${WAIT_TIME_PERIOD} ${WAIT_TIME_PERIOD_SOURCES})
 add_executable(${MOVE_SEMANTICS} ${MOVE_SEMANTICS_SOURCES})
+add_executable(${COLOR_MODIFIER} ${COLOR_MODIFIER_SOURCES})
 
 if(UNIX)
     find_package(Threads)
