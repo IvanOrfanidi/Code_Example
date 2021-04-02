@@ -30,7 +30,6 @@ endif()
 set(THREAD_SAFE_QUEUE "thread_safe_queue")
 file(GLOB_RECURSE THREAD_SAFE_QUEUE_SOURCES
     thread_safe_queue/*.cpp
-    thread_safe_queue/*.hpp
 )
 
 # Wait Time Period
@@ -43,14 +42,18 @@ file(GLOB_RECURSE WAIT_TIME_PERIOD_SOURCES
 set(MOVE_SEMANTICS "move_semantics")
 file(GLOB_RECURSE MOVE_SEMANTICS_SOURCES
     move_semantics/*.cpp
-    move_semantics/*.hpp
 )
 
 # Color Modifier
 set(COLOR_MODIFIER "color_modifier")
 file(GLOB_RECURSE COLOR_MODIFIER_SOURCES
     color_modifier/*.cpp
-    color_modifier/*.hpp
+)
+
+# Is stl container
+set(IS_STL_CONTAINER "is_stl_container")
+file(GLOB_RECURSE IS_STL_CONTAINER_SOURCES
+    is_stl_container/*.cpp
 )
 
 # Set build type
@@ -63,6 +66,7 @@ add_executable(${THREAD_SAFE_QUEUE} ${THREAD_SAFE_QUEUE_SOURCES})
 add_executable(${WAIT_TIME_PERIOD} ${WAIT_TIME_PERIOD_SOURCES})
 add_executable(${MOVE_SEMANTICS} ${MOVE_SEMANTICS_SOURCES})
 add_executable(${COLOR_MODIFIER} ${COLOR_MODIFIER_SOURCES})
+add_executable(${IS_STL_CONTAINER} ${IS_STL_CONTAINER_SOURCES})
 
 if(UNIX)
     find_package(Threads)
