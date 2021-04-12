@@ -1,7 +1,7 @@
 stages:
   - building
 
-building-gcc:
+gcc:
   stage: building
   script:
     - mkdir build
@@ -11,9 +11,9 @@ building-gcc:
       -DCMAKE_CXX_COMPILER=g++
       -DCMAKE_BUILD_TYPE=Release
       ..
-    - cmake --build . -- -j4
+    - cmake --build .
 
-building-clang:
+clang:
   stage: building
   script:
     - mkdir build
@@ -23,4 +23,4 @@ building-clang:
       -DCMAKE_CXX_COMPILER=clang++
       -DCMAKE_BUILD_TYPE=Release
       ..
-    - cmake --build . -- -j4
+    - cmake --build .
