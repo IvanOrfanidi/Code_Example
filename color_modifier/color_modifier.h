@@ -26,7 +26,7 @@ enum Code {
 
 class Modifier {
 public:
-    Modifier(Code pCode)
+    explicit Modifier(Code pCode)
         : code(pCode)
     {
     }
