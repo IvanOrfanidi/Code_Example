@@ -25,5 +25,5 @@ int main()
     In5 = std::move(In2);
     std::cout << In5.size() << std::endl;
 
-    return 0;
+    return EXIT_SUCCESS;
 }

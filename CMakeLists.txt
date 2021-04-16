@@ -11,11 +11,10 @@ set(CMAKE_CXX_STANDARD 17)
 if((CMAKE_CXX_COMPILER_ID MATCHES "GNU") OR (CMAKE_CXX_COMPILER_ID MATCHES "Clang"))
     add_compile_options(
         -Werror
-
         -Wall
         -Wextra
-        -Wpedantic
 
+        -Wpedantic
         -Wcast-align
         -Wcast-qual
         -Wenum-compare
@@ -26,34 +25,34 @@ if((CMAKE_CXX_COMPILER_ID MATCHES "GNU") OR (CMAKE_CXX_COMPILER_ID MATCHES "Clan
     )
 endif()
 
-# Thread Safe Queue
 set(THREAD_SAFE_QUEUE "thread_safe_queue")
 file(GLOB_RECURSE THREAD_SAFE_QUEUE_SOURCES
     thread_safe_queue/*.cpp
 )
 
-# Wait Time Period
 set(WAIT_TIME_PERIOD "wait_time_period")
 file(GLOB_RECURSE WAIT_TIME_PERIOD_SOURCES
     wait_time_period/*.cpp
 )
 
-# Move Semantics
 set(MOVE_SEMANTICS "move_semantics")
 file(GLOB_RECURSE MOVE_SEMANTICS_SOURCES
     move_semantics/*.cpp
 )
 
-# Color Modifier
 set(COLOR_MODIFIER "color_modifier")
 file(GLOB_RECURSE COLOR_MODIFIER_SOURCES
     color_modifier/*.cpp
 )
 
-# Is stl container
 set(IS_STL_CONTAINER "is_stl_container")
 file(GLOB_RECURSE IS_STL_CONTAINER_SOURCES
     is_stl_container/*.cpp
+)
+
+set(TYPE_INDEX "type_index")
+file(GLOB_RECURSE TYPE_INDEX_SOURCES
+    type_index/*.cpp
 )
 
 # Set build type
@@ -67,9 +66,27 @@ add_executable(${WAIT_TIME_PERIOD} ${WAIT_TIME_PERIOD_SOURCES})
 add_executable(${MOVE_SEMANTICS} ${MOVE_SEMANTICS_SOURCES})
 add_executable(${COLOR_MODIFIER} ${COLOR_MODIFIER_SOURCES})
 add_executable(${IS_STL_CONTAINER} ${IS_STL_CONTAINER_SOURCES})
+add_executable(${TYPE_INDEX} ${TYPE_INDEX_SOURCES})
 
 if(UNIX)
     find_package(Threads)
     target_link_libraries(${THREAD_SAFE_QUEUE} ${CMAKE_THREAD_LIBS_INIT})
     target_link_libraries(${WAIT_TIME_PERIOD} ${CMAKE_THREAD_LIBS_INIT})
 endif()
+
+# Find boost
+if(WIN32)
+    find_package(Boost)
+elseif(UNIX)
+    # Boost components
+    set(BOOST_COMPONENTS
+        system
+        filesystem
+        date_time
+        chrono
+        serialization
+    )
+    find_package(Boost COMPONENTS ${BOOST_COMPONENTS} REQUIRED)
+endif()
+
+target_link_libraries(${TYPE_INDEX} ${Boost_LIBRARIES})

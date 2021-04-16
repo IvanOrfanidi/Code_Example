@@ -15,7 +15,6 @@
 #include <utility>
 #include <vector>
 
-
 // Specialize a type for all of the STL containers.
 namespace is_stl_container_impl {
 template <typename T>

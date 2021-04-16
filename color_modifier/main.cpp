@@ -20,4 +20,6 @@ int main()
     std::cout << magenta << "magenta" << def << std::endl;
     std::cout << cyan << "cyan" << def << std::endl;
     std::cout << white << "white" << def << std::endl;
+
+    return EXIT_SUCCESS;
 }
