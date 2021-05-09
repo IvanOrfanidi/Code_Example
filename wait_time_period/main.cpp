@@ -16,6 +16,7 @@
  пробуждение, после чего при следующем прохождении цикла отсчет времени на­
  чнется заново. Это может повторяться произвольное количество раз, аннулируя все
  границы времени ожидания. */
+
 int main()
 {
     std::cout << "Start Waiting" << std::endl;
@@ -24,8 +25,8 @@ int main()
     bool done = false;
     std::condition_variable cv;
     std::mutex mtx;
-    while (true) {
-        auto const timeout = std::chrono::steady_clock::now() + std::chrono::milliseconds(1000);
+    while (count < 10) {
+        const auto timeout = std::chrono::steady_clock::now() + std::chrono::seconds(5);
         std::unique_lock<std::mutex> lock(mtx);
         while (!done) {
             if (cv.wait_until(lock, timeout) == std::cv_status::timeout) {
@@ -33,7 +34,7 @@ int main()
             }
         }
         count++;
-        std::cout << "Counter: " << count << std::endl;
+        std::cout << "Counter: " << count << ". Time: " << std::time(nullptr) << "." << std::endl;
 
         // Имитация срабатывания done при делении count без остатка на 3
         if (!(count % 3)) {
