@@ -8,21 +8,30 @@
 
 #include "thread_safe_queue.h"
 
-void first()
+void first(threadsafe_queue<std::vector<int>>& source)
 {
-    std::cout << "From First Thread ID : " << std::this_thread::get_id() << "\n";
+    std::vector<int> data;
+    source.wait_and_pop(data);
+
+    for (const auto& i : data) {
+        std::cout << i << std::endl;
+    }
 }
 
-void second()
+void second(threadsafe_queue<std::vector<int>>& destination)
 {
-    std::cout << "From Second Thread ID : " << std::this_thread::get_id() << "\n";
+    const std::vector data{ 0, 1, 2, 3, 4 };
+    destination.push(data);
 }
 
 int main()
 {
-    std::vector<std::thread> threads;
-    threads.emplace_back(first);
-    threads.emplace_back(second);
+    threadsafe_queue<std::vector<int>> data; // Общая для процессов защищённая очередь.
+
+    std::vector<std::thread> threads; // Вектор процессов.
+
+    threads.emplace_back(first, std::ref(data));
+    threads.emplace_back(second, std::ref(data));
 
     for (auto& thr : threads) {
         thr.join();

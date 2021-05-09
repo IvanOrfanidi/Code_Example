@@ -9,6 +9,7 @@ template <typename T>
 class threadsafe_queue {
 public:
     threadsafe_queue() = default;
+    threadsafe_queue& operator=(const threadsafe_queue&) = delete;
 
     threadsafe_queue(const threadsafe_queue& other)
     {
@@ -75,8 +76,6 @@ public:
     }
 
 private:
-    threadsafe_queue& operator=(const threadsafe_queue&) = delete;
-
     std::queue<T> _data_queue;
     mutable std::mutex _mtx;
     std::condition_variable _cv;
