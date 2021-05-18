@@ -55,6 +55,11 @@ file(GLOB_RECURSE TYPE_INDEX_SOURCES
     type_index/*.cpp
 )
 
+set(SFINAE "sfinae")
+file(GLOB_RECURSE SFINAE_SOURCES
+    sfinae/*.cpp
+)
+
 # Set build type
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
@@ -67,6 +72,7 @@ add_executable(${MOVE_SEMANTICS} ${MOVE_SEMANTICS_SOURCES})
 add_executable(${COLOR_MODIFIER} ${COLOR_MODIFIER_SOURCES})
 add_executable(${IS_STL_CONTAINER} ${IS_STL_CONTAINER_SOURCES})
 add_executable(${TYPE_INDEX} ${TYPE_INDEX_SOURCES})
+add_executable(${SFINAE} ${SFINAE_SOURCES})
 
 if(UNIX)
     find_package(Threads)
