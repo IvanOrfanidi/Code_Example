@@ -60,6 +60,11 @@ file(GLOB_RECURSE SFINAE_SOURCES
     sfinae/*.cpp
 )
 
+set(ARRAY_LEN "array_len")
+file(GLOB_RECURSE ARRAY_LEN_SOURCES
+    array_len/*.cpp
+)
+
 # Set build type
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
@@ -73,6 +78,7 @@ add_executable(${COLOR_MODIFIER} ${COLOR_MODIFIER_SOURCES})
 add_executable(${IS_STL_CONTAINER} ${IS_STL_CONTAINER_SOURCES})
 add_executable(${TYPE_INDEX} ${TYPE_INDEX_SOURCES})
 add_executable(${SFINAE} ${SFINAE_SOURCES})
+add_executable(${ARRAY_LEN} ${ARRAY_LEN_SOURCES})
 
 if(UNIX)
     find_package(Threads)
