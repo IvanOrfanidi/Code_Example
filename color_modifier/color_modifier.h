@@ -26,18 +26,18 @@ enum Code {
 
 class Modifier {
 public:
-    explicit Modifier(Code pCode)
-        : code(pCode)
+    explicit Modifier(Code code)
+        : _code(code)
     {
     }
     friend std::ostream&
     operator<<(std::ostream& os, const Modifier& mod)
     {
-        return os << "\033[" << mod.code << "m";
+        return os << "\033[" << static_cast<int>(mod._code) << "m";
     }
 
 private:
-    Code code;
+    Code _code;
 };
 
 }
