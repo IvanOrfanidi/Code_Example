@@ -94,19 +94,15 @@ if(UNIX)
     target_link_libraries(${WAIT_TIME_PERIOD} ${CMAKE_THREAD_LIBS_INIT})
 endif()
 
+# Boost components
+set(BOOST_COMPONENTS
+    system
+    filesystem
+    date_time
+    chrono
+    serialization
+)
 # Find boost
-if(WIN32)
-    find_package(Boost)
-elseif(UNIX)
-    # Boost components
-    set(BOOST_COMPONENTS
-        system
-        filesystem
-        date_time
-        chrono
-        serialization
-    )
-    find_package(Boost COMPONENTS ${BOOST_COMPONENTS} REQUIRED)
-endif()
+find_package(Boost COMPONENTS ${BOOST_COMPONENTS} REQUIRED)
 
 target_link_libraries(${TYPE_INDEX} ${Boost_LIBRARIES})
