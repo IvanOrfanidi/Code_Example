@@ -11,16 +11,21 @@
 void first(threadsafe_queue<std::vector<int>>& source)
 {
     std::vector<int> data;
+
+    std::cout << "wait data from second thread\n";
     source.wait_and_pop(data);
 
     for (const auto& i : data) {
-        std::cout << i << std::endl;
+        std::cout << i << " ";
     }
+    std::cout << std::endl;
 }
 
 void second(threadsafe_queue<std::vector<int>>& destination)
 {
     const std::vector data{ 0, 1, 2, 3, 4 };
+
+    std::cout << "send data to first thread\n";
     destination.push(data);
 }
 
