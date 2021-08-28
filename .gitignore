@@ -14,5 +14,7 @@ build/*
 !*.md
 !*.yml
 !*.cfg
+!*.jpg
+!*.png
 build/*.txt
 build/*.h

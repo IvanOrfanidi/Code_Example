@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstring>
+
 template <class T>
 class MemoryBlock {
 public:
@@ -8,6 +10,9 @@ public:
         : _data(::new T[size])
         , _size(size)
     {
+        if (_data == nullptr) {
+            throw std::runtime_error("insufficient memory");
+        }
     }
 
     ~MemoryBlock()
@@ -22,18 +27,29 @@ public:
         : _data(::new T[other._size])
         , _size(other._size)
     {
+        std::cout << "Copy constructor" << std::endl;
+
+        if (_data == nullptr) {
+            throw std::runtime_error("insufficient memory");
+        }
+
         std::copy(other._data, (other._data + other._size), _data);
     }
 
     // Copy assignment operator
     MemoryBlock& operator=(const MemoryBlock& other)
     {
+        std::cout << "Copy assignment operator" << std::endl;
+
         if (this != &other) {
             // Free the existing resource
             ::delete[] _data;
 
             _size = other._size;
             _data = new T[other._size];
+            if (_data == nullptr) {
+                throw std::runtime_error("insufficient memory");
+            }
 
             std::copy(other._data, (other._data + other._size), _data);
         }
@@ -43,6 +59,8 @@ public:
     // Move constructor
     MemoryBlock(MemoryBlock&& other)
     {
+        std::cout << "Move constructor" << std::endl;
+
         // Copy the data pointer and its length from the
         // source object.
         _data = other._data;
@@ -60,6 +78,8 @@ public:
     // Move assignment operator
     MemoryBlock& operator=(MemoryBlock&& other)
     {
+        std::cout << "Move assignment operator" << std::endl;
+
         if (this != &other) {
             // Free the existing resource
             ::delete[] _data;
@@ -82,11 +102,51 @@ public:
 
     void resize(size_t size)
     {
-        _size = size;
+        if (size != _size) {
+            T* data = ::new T[size];
+            if (_data == nullptr) {
+                throw std::runtime_error("insufficient memory");
+            }
+
+            std::memset(data, 0, size * sizeof(T));
+            std::memcpy(data, _data, (((_size < size) ? _size : size) * sizeof(T)));
+
+            ::delete[] _data;
+            _data = data;
+            _size = size;
+        }
     }
-    size_t size() const
+
+    size_t size() const noexcept
     {
         return _size;
+    }
+
+    T& operator[](const size_t index)
+    {
+        if (index >= _size) {
+            throw std::runtime_error("error index out of range");
+        }
+        return _data[index];
+    }
+
+    const T& operator[](const size_t index) const
+    {
+        if (index >= _size) {
+            throw std::runtime_error("error index out of range");
+        }
+        return _data[index];
+    }
+
+    template <class Stream>
+    friend Stream& operator<<(Stream& stream, const MemoryBlock& memoryBlock)
+    {
+        stream << "[ ";
+        for (size_t i = 0; i < memoryBlock._size; ++i) {
+            stream << memoryBlock._data[i] << " ";
+        }
+        stream << ']';
+        return stream;
     }
 
 private:
