@@ -57,6 +57,11 @@ file(GLOB_RECURSE ARRAY_LEN_SOURCES
     array_len/*.cpp
 )
 
+set(OPERATIONS_ON_MATRICES "operations_on_matrices")
+file(GLOB_RECURSE OPERATIONS_ON_MATRICES_SOURCES
+    operations_on_matrices/*.cpp
+)
+
 # Compiling target
 add_executable(${THREAD_SAFE_QUEUE} ${THREAD_SAFE_QUEUE_SOURCES})
 add_executable(${WAIT_TIME_PERIOD} ${WAIT_TIME_PERIOD_SOURCES})
@@ -66,6 +71,7 @@ add_executable(${IS_STL_CONTAINER} ${IS_STL_CONTAINER_SOURCES})
 add_executable(${TYPE_INDEX} ${TYPE_INDEX_SOURCES})
 add_executable(${SFINAE} ${SFINAE_SOURCES})
 add_executable(${ARRAY_LEN} ${ARRAY_LEN_SOURCES})
+add_executable(${OPERATIONS_ON_MATRICES} ${OPERATIONS_ON_MATRICES_SOURCES})
 
 if(UNIX)
     find_package(Threads)
@@ -84,4 +90,11 @@ set(BOOST_COMPONENTS
 # Find boost
 find_package(Boost COMPONENTS ${BOOST_COMPONENTS} REQUIRED)
 
+# Find OpenCV
+find_package(OpenCV REQUIRED)
+
+# Include directories
+include_directories(${OpenCV_INCLUDE_DIRS})
+
 target_link_libraries(${TYPE_INDEX} ${Boost_LIBRARIES})
+target_link_libraries(${OPERATIONS_ON_MATRICES} ${OpenCV_LIBS})
