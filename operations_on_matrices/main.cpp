@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 
+//#define CUDA_ENABLE
 #ifdef CUDA_ENABLE
 #include <opencv2/cudaarithm.hpp>
 #endif
@@ -11,6 +12,8 @@ constexpr int HEIGHT = 1000;
 
 int main()
 {
+    int64 start;
+    int64 end;
 #ifdef CUDA_ENABLE
     bool cudaEnable = false;
     if (cv::cuda::getCudaEnabledDeviceCount() != 0) {
@@ -26,27 +29,39 @@ int main()
     cv::Mat MB(cv::Size(WIDTH, HEIGHT), CV_32F);
     cv::randu(MB, cv::Scalar::all(-10), cv::Scalar::all(10));
 
-    auto start = cv::getTickCount();
+    start = cv::getTickCount();
     cv::Mat MC = MA * MB;
-    auto end = cv::getTickCount();
-    std::cout << "calculation time:            " << ((end - start) * (1000.0f / cv::getTickFrequency())) << " ms" << std::endl;
+    end = cv::getTickCount();
+    std::cout << "multiplication time:                      " << ((end - start) * (1000.0f / cv::getTickFrequency())) << " ms" << std::endl;
+
+    start = cv::getTickCount();
+    cv::sum(cv::sum(MC))[0];
+    end = cv::getTickCount();
+    std::cout << "time of summation of matrix elements:     " << ((end - start) * (1000.0f / cv::getTickFrequency())) << " ms" << std::endl;
+
+    std::cout << std::endl
+              << "with CUDA" << std::endl;
 
 #ifdef CUDA_ENABLE
     if (cudaEnable) {
         cv::cuda::GpuMat gpuMA(MA);
         cv::cuda::GpuMat gpuMB(MB);
         cv::cuda::GpuMat gpuMD;
+
         start = cv::getTickCount();
         cv::cuda::gemm(gpuMA, gpuMB, 1.0, cv::cuda::GpuMat(), 0.0, gpuMD);
         end = cv::getTickCount();
-        cv::Mat MD;
-        gpuMD.download(MD);
-        std::cout << "calculation time with CUDA:  " << ((end - start) * (1000.0f / cv::getTickFrequency())) << " ms" << std::endl;
+        std::cout << "multiplication time:                      " << ((end - start) * (1000.0f / cv::getTickFrequency())) << " ms" << std::endl;
+
+        start = cv::getTickCount();
+        cv::cuda::sum(cv::cuda::sum(gpuMD))[0];
+        end = cv::getTickCount();
+        std::cout << "time of summation of matrix elements:     " << ((end - start) * (1000.0f / cv::getTickFrequency())) << " ms" << std::endl;
     } else {
         std::cout << "CUDA is not supported" << std::endl;
     }
 #else
-    std::cout << "CUDA is not supported" << std::endl;
+    std::cout << "CUDA is disabled" << std::endl;
 #endif
 
     return EXIT_SUCCESS;
