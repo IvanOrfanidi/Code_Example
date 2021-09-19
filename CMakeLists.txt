@@ -62,6 +62,11 @@ file(GLOB_RECURSE OPERATIONS_ON_MATRICES_SOURCES
     operations_on_matrices/*.cpp
 )
 
+set(DURATION_OF_TIME "duration_of_time")
+file(GLOB_RECURSE DURATION_OF_TIME_SOURCES
+    duration_of_time/*.cpp
+)
+
 # Compiling target
 add_executable(${THREAD_SAFE_QUEUE} ${THREAD_SAFE_QUEUE_SOURCES})
 add_executable(${WAIT_TIME_PERIOD} ${WAIT_TIME_PERIOD_SOURCES})
@@ -72,6 +77,7 @@ add_executable(${TYPE_INDEX} ${TYPE_INDEX_SOURCES})
 add_executable(${SFINAE} ${SFINAE_SOURCES})
 add_executable(${ARRAY_LEN} ${ARRAY_LEN_SOURCES})
 add_executable(${OPERATIONS_ON_MATRICES} ${OPERATIONS_ON_MATRICES_SOURCES})
+add_executable(${DURATION_OF_TIME} ${DURATION_OF_TIME_SOURCES})
 
 if(UNIX)
     find_package(Threads)

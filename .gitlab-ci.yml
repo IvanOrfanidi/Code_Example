@@ -19,7 +19,7 @@ gcc:
       -DCMAKE_CXX_COMPILER=g++
       -DCMAKE_BUILD_TYPE=Release
       ..
-    - cmake --build .
+    - cmake --build . -j4
 
 clang:
   stage: building
@@ -31,4 +31,4 @@ clang:
       -DCMAKE_CXX_COMPILER=clang++
       -DCMAKE_BUILD_TYPE=Release
       ..
-    - cmake --build .
+    - cmake --build . -j4
