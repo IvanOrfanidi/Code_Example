@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.10)
 project(code_example)
 
 # Options
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 # Compiler-specific options
 if((CMAKE_CXX_COMPILER_ID MATCHES "GNU") OR (CMAKE_CXX_COMPILER_ID MATCHES "Clang"))
@@ -14,6 +14,11 @@ if((CMAKE_CXX_COMPILER_ID MATCHES "GNU") OR (CMAKE_CXX_COMPILER_ID MATCHES "Clan
         -Wall
         -Wextra
         -Wpedantic
+    )
+endif()
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    add_compile_options(
+        -fconcepts
     )
 endif()
 
@@ -62,6 +67,11 @@ file(GLOB_RECURSE DURATION_OF_TIME_SOURCES
     duration_of_time/*.cpp
 )
 
+set(CONCEPT "concept")
+file(GLOB_RECURSE CONCEPT_SOURCES
+    concept/*.cpp
+)
+
 # Compiling target
 add_executable(${THREAD_SAFE_QUEUE} ${THREAD_SAFE_QUEUE_SOURCES})
 add_executable(${WAIT_TIME_PERIOD} ${WAIT_TIME_PERIOD_SOURCES})
@@ -72,6 +82,7 @@ add_executable(${TYPE_INDEX} ${TYPE_INDEX_SOURCES})
 add_executable(${SFINAE} ${SFINAE_SOURCES})
 add_executable(${ARRAY_LEN} ${ARRAY_LEN_SOURCES})
 add_executable(${DURATION_OF_TIME} ${DURATION_OF_TIME_SOURCES})
+add_executable(${CONCEPT} ${CONCEPT_SOURCES})
 
 if(UNIX)
     find_package(Threads)
