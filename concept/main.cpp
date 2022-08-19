@@ -59,6 +59,4 @@ int main()
         swap(a, b);
         std::cout << "This is string values: a = `" << a << "`, b = `" << b << "`." << std::endl;
     }
-
-    return EXIT_SUCCESS;
 }

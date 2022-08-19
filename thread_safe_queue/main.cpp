@@ -41,6 +41,4 @@ int main()
     for (auto& thr : threads) {
         thr.join();
     }
-
-    return EXIT_SUCCESS;
 }

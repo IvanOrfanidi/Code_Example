@@ -29,6 +29,4 @@ int main()
     MemoryBlock<int> In5;
     In5 = std::move(In4);
     std::cout << "In5 = " << In5 << std::endl;
-
-    return EXIT_SUCCESS;
 }

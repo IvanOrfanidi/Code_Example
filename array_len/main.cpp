@@ -25,6 +25,4 @@ int main()
 
     std::vector<uint32_t> stdVector = { 1, 2, 3, 4, 5, 6, 7 };
     std::cout << "Length for stdVector = " << length(stdVector) << std::endl;
-
-    return EXIT_SUCCESS;
 }

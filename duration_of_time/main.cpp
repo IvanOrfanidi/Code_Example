@@ -28,10 +28,8 @@ int main()
     std::vector<int> vec = generate_data<std::vector<int>>(1'000);
     std::sort(vec.begin(), vec.end());
 
-    std::chrono::microseconds end = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch());
+    const std::chrono::microseconds end = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch());
 
     const auto diff = end - start;
     std::cout << "Time to fill and sort a vector of " << vec.size() << " ints : " << diff.count() << " us\n";
-
-    return EXIT_SUCCESS;
 }

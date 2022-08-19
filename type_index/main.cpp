@@ -22,6 +22,4 @@ int main()
               << "    T = " << getType(*initializerList.begin()) << '\n'
               << "    param = " << getParamType(*initializerList.begin()) << '\n'
               << std::endl;
-
-    return EXIT_SUCCESS;
 }

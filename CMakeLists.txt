@@ -8,14 +8,13 @@ project(code_example)
 set(CMAKE_CXX_STANDARD 20)
 
 # Compiler-specific options
-if((CMAKE_CXX_COMPILER_ID MATCHES "GNU") OR (CMAKE_CXX_COMPILER_ID MATCHES "Clang"))
-    add_compile_options(
-        -Werror
-        -Wall
-        -Wextra
-        -Wpedantic
-    )
-endif()
+add_compile_options(
+    -Werror
+    -Wall
+    -Wextra
+    -Wpedantic
+)
+
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     add_compile_options(
         -fconcepts
@@ -72,6 +71,11 @@ file(GLOB_RECURSE CONCEPT_SOURCES
     concept/*.cpp
 )
 
+set(STRUCT_TO_COUT "struct_to_cout")
+file(GLOB_RECURSE STRUCT_TO_COUT_SOURCES
+    struct_to_cout/*.cpp
+)
+
 # Compiling target
 add_executable(${THREAD_SAFE_QUEUE} ${THREAD_SAFE_QUEUE_SOURCES})
 add_executable(${WAIT_TIME_PERIOD} ${WAIT_TIME_PERIOD_SOURCES})
@@ -83,6 +87,7 @@ add_executable(${SFINAE} ${SFINAE_SOURCES})
 add_executable(${ARRAY_LEN} ${ARRAY_LEN_SOURCES})
 add_executable(${DURATION_OF_TIME} ${DURATION_OF_TIME_SOURCES})
 add_executable(${CONCEPT} ${CONCEPT_SOURCES})
+add_executable(${STRUCT_TO_COUT} ${STRUCT_TO_COUT_SOURCES})
 
 if(UNIX)
     find_package(Threads)
@@ -98,6 +103,7 @@ set(BOOST_COMPONENTS
     chrono
     serialization
 )
+
 # Find boost
 find_package(Boost COMPONENTS ${BOOST_COMPONENTS} REQUIRED)
 

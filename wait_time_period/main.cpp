@@ -43,6 +43,4 @@ int main()
             done = false;
         }
     }
-
-    return EXIT_SUCCESS;
 }

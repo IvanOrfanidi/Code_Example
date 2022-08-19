@@ -12,6 +12,4 @@ int main()
     std::cout << "std::string is stl container:     " << is_stl_container<std::string>::value << std::endl;
     std::cout << "char[] is stl container:          " << is_stl_container<char[1]>::value << std::endl;
     std::cout << "std::fstream is stl container:    " << is_stl_container<std::fstream>::value << std::endl;
-
-    return EXIT_SUCCESS;
 }
