@@ -76,6 +76,11 @@ file(GLOB_RECURSE STRUCT_TO_COUT_SOURCES
     struct_to_cout/*.cpp
 )
 
+set(CAST "cast")
+file(GLOB_RECURSE CAST_SOURCES
+    cast/*.cpp
+)
+
 # Compiling target
 add_executable(${THREAD_SAFE_QUEUE} ${THREAD_SAFE_QUEUE_SOURCES})
 add_executable(${WAIT_TIME_PERIOD} ${WAIT_TIME_PERIOD_SOURCES})
@@ -88,6 +93,7 @@ add_executable(${ARRAY_LEN} ${ARRAY_LEN_SOURCES})
 add_executable(${DURATION_OF_TIME} ${DURATION_OF_TIME_SOURCES})
 add_executable(${CONCEPT} ${CONCEPT_SOURCES})
 add_executable(${STRUCT_TO_COUT} ${STRUCT_TO_COUT_SOURCES})
+add_executable(${CAST} ${CAST_SOURCES})
 
 if(UNIX)
     find_package(Threads)
