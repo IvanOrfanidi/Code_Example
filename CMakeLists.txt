@@ -21,6 +21,9 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     )
 endif()
 
+find_package(Boost)
+find_package(Threads)
+
 set(THREAD_SAFE_QUEUE "thread_safe_queue")
 file(GLOB_RECURSE THREAD_SAFE_QUEUE_SOURCES
     thread_safe_queue/*.cpp
@@ -101,22 +104,6 @@ add_executable(${STRUCT_TO_COUT} ${STRUCT_TO_COUT_SOURCES})
 add_executable(${CAST} ${CAST_SOURCES})
 add_executable(${REDIRECT_COUT_TO_FILE} ${REDIRECT_COUT_TO_FILE_SOURCES})
 
-if(UNIX)
-    find_package(Threads)
-    target_link_libraries(${THREAD_SAFE_QUEUE} ${CMAKE_THREAD_LIBS_INIT})
-    target_link_libraries(${WAIT_TIME_PERIOD} ${CMAKE_THREAD_LIBS_INIT})
-endif()
-
-# Boost components
-set(BOOST_COMPONENTS
-    system
-    filesystem
-    date_time
-    chrono
-    serialization
-)
-
-# Find boost
-find_package(Boost COMPONENTS ${BOOST_COMPONENTS} REQUIRED)
-
 target_link_libraries(${TYPE_INDEX} ${Boost_LIBRARIES})
+target_link_libraries(${THREAD_SAFE_QUEUE} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(${WAIT_TIME_PERIOD} ${CMAKE_THREAD_LIBS_INIT})
