@@ -81,6 +81,11 @@ file(GLOB_RECURSE CAST_SOURCES
     cast/*.cpp
 )
 
+set(REDIRECT_COUT_TO_FILE "redirect_cout_to_file")
+file(GLOB_RECURSE REDIRECT_COUT_TO_FILE_SOURCES
+    redirect_cout_to_file/*.cpp
+)
+
 # Compiling target
 add_executable(${THREAD_SAFE_QUEUE} ${THREAD_SAFE_QUEUE_SOURCES})
 add_executable(${WAIT_TIME_PERIOD} ${WAIT_TIME_PERIOD_SOURCES})
@@ -94,6 +99,7 @@ add_executable(${DURATION_OF_TIME} ${DURATION_OF_TIME_SOURCES})
 add_executable(${CONCEPT} ${CONCEPT_SOURCES})
 add_executable(${STRUCT_TO_COUT} ${STRUCT_TO_COUT_SOURCES})
 add_executable(${CAST} ${CAST_SOURCES})
+add_executable(${REDIRECT_COUT_TO_FILE} ${REDIRECT_COUT_TO_FILE_SOURCES})
 
 if(UNIX)
     find_package(Threads)
