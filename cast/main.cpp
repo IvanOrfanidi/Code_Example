@@ -3,32 +3,32 @@
 
 #include "cast.h"
 
-struct GPS_Data {
+struct Data {
     std::string service{};
-    unsigned num_of_sat = 0;
+    unsigned counter = 0;
 };
 
 template <class StreamType>
-StreamType& operator<<(StreamType& stream, const GPS_Data& data)
+StreamType& operator<<(StreamType& stream, const Data& data)
 {
-    stream << "Service: " << data.service << ", Number of satellites: " << data.num_of_sat;
+    stream << "Service: " << data.service << ", Number of satellites: " << data.counter;
     return stream;
 }
 
 int main()
 {
-    std::map<std::string, unsigned> all_data = {
-        { "GPS", 14 },
-        { "GLONASS", 10 },
+    const static std::map<std::string, unsigned> testData = {
+        { "GPS", 10 },
+        { "GLONASS", 5 },
         { "GALILEO", 8 },
     };
 
-    GPS_Data gps_1;
-    for (const auto& variable : all_data) {
-        gps_1 = cast(variable);
-        const auto gps_2 = cast(variable).to<GPS_Data>();
+    Data data{};
+    for (const auto& variable : testData) {
+        data = cast(variable);
+        std::cout << data << std::endl;
 
-        std::cout << gps_1 << std::endl;
-        std::cout << gps_2 << std::endl;
+        data = cast(variable).to<Data>();
+        std::cout << data << std::endl;
     }
 }
