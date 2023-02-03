@@ -89,6 +89,11 @@ file(GLOB_RECURSE REDIRECT_COUT_TO_FILE_SOURCES
     redirect_cout_to_file/*.cpp
 )
 
+set(ANY_VARIANT_OPTIONAL "any_variant_optional")
+file(GLOB_RECURSE ANY_VARIANT_OPTIONAL_SOURCES
+    any_variant_optional/*.cpp
+)
+
 # Compiling target
 add_executable(${THREAD_SAFE_QUEUE} ${THREAD_SAFE_QUEUE_SOURCES})
 add_executable(${WAIT_TIME_PERIOD} ${WAIT_TIME_PERIOD_SOURCES})
@@ -103,6 +108,7 @@ add_executable(${CONCEPT} ${CONCEPT_SOURCES})
 add_executable(${STRUCT_TO_COUT} ${STRUCT_TO_COUT_SOURCES})
 add_executable(${CAST} ${CAST_SOURCES})
 add_executable(${REDIRECT_COUT_TO_FILE} ${REDIRECT_COUT_TO_FILE_SOURCES})
+add_executable(${ANY_VARIANT_OPTIONAL} ${ANY_VARIANT_OPTIONAL_SOURCES})
 
 target_link_libraries(${TYPE_INDEX} ${Boost_LIBRARIES})
 target_link_libraries(${THREAD_SAFE_QUEUE} ${CMAKE_THREAD_LIBS_INIT})
